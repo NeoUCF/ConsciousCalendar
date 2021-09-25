@@ -3,7 +3,8 @@ const Homepage = () => {
     <div>
       <div></div>
 
-      <div><img src="../../public/image/road.png" alt="apple"/></div>
+      <div>
+      <img src="image/road.png" alt="apple"/></div>
     </div>
 
   

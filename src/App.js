@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
 import './App.css';
+require("dotenv").config();
 
 function App(props) {
     const [item, setItem] = useState([]);
 
     useEffect(() => {
-        fetch("http://api.openweathermap.org/data/2.5/weather?q=London&appid=31c41849ba5501f1a2c787adb0964d29&units=metric")
+        const secret = process.env.WEATHER_KEY;
+        fetch("http://api.openweathermap.org/data/2.5/weather?q=London&appid="+secret+"&units=metric")
             .then(res => res.json())
             .then(
                 (result) => { setItem(result) },

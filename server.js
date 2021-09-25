@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 require("dotenv").config();
 
 // Connect to database
-mongoose.connect(process.env.MONGODB_SRV
+mongoose.connect(process.env.REACT_APP_MONGODB_SRV
     ,{useNewUrlParser: true,
     useUnifiedTopology: true,
     userFindAndModify: false,

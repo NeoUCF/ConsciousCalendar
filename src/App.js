@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import './App.css';
+import Calendar from './Calendar';
 require("dotenv").config();
 
 function App(props) {
     const [item, setItem] = useState([]);
 
     useEffect(() => {
-        const secret = process.env.WEATHER_KEY;
+        const secret = process.env.REACT_APP_WEATHER_KEY;
         fetch("http://api.openweathermap.org/data/2.5/weather?q=London&appid="+secret+"&units=metric")
             .then(res => res.json())
             .then(
@@ -32,6 +33,7 @@ function App(props) {
                 </a>
                 <p>{props.text}</p>
                 {/* <p>{item}</p> */}
+                <Calendar />
             </header>
         </div>
     );

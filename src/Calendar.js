@@ -73,8 +73,12 @@ const Calendar = () => {
 
   return (
     <div className="calendar">
-    <div className="tab">
-      <DaysOfTheWeek />
+      <div className="tab">
+        {/* <DaysOfTheWeek /> */}
+        Sun &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Mon &nbsp; &nbsp; &nbsp;
+        &nbsp; &nbsp;&nbsp;Tues &nbsp; &nbsp; &nbsp; &nbsp; Weds &nbsp; &nbsp;
+        &nbsp; &nbsp; Thurs &nbsp; &nbsp; &nbsp; &nbsp; Fri &nbsp; &nbsp; &nbsp;
+        &nbsp; Sat &nbsp; &nbsp; &nbsp; &nbsp; Sun
       </div>
       {calendar.map((week) => {
         return (
@@ -101,12 +105,13 @@ const Calendar = () => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </Typography>
+          <form>
+            <p>event title</p>
+            <input type="text" />
+
+            <p>event date</p>
+            <input type="date" />
+          </form>
         </Box>
       </Modal>
     </div>
@@ -119,7 +124,7 @@ const DaysOfTheWeek = () => {
   return (
     <div className="weeks">
       {DoTW.map((day) => {
-        return day+"\t\t";
+        return day;
       })}
     </div>
   );

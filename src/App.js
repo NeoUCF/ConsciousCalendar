@@ -34,7 +34,9 @@ function App(props) {
                 <p>{props.text}</p>
                 {/* <p>{item}</p> */}
                 <Calendar />
+                <br /><br /><br />
             </header>
+            
         </div>
     );
 }

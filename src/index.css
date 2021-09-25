@@ -21,7 +21,7 @@ code {
   /* width: calc(100% / 7); */
   width: 10rem;
   height: 10rem;
-  display: inline-block;
+  display: inline-flex;
   background-color: white;
   border: 1px solid black;
   padding: 0;

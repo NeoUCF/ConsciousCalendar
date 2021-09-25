@@ -13,10 +13,6 @@ code {
 }
 
 .days {
-  color: black;
-}
-
-.calendar .days {
   border-radius: 10px;
   position: relative;
   /* width: calc(100% / 7); */
@@ -30,6 +26,7 @@ code {
   box-sizing: border-box;
   z-index: 1;
   text-align: left;
+  color: black;
 }
 
 
@@ -37,6 +34,20 @@ code {
   background-color: gray;
 }
 
-.tab {
-  tab-size: 0;
+.DoTW {
+  font-size: 18px;
+  position: relative;
+  /* width: calc(100% / 7); */
+  width: 10rem;
+  display: inline-flex;
+  background-color: #DEFCFC;
+  padding: 0;
+  margin: 0;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+  z-index: 1;
+  text-align: left;
+  color: black;
+  font-family: 'Livvic', sans-serif;
 }
+

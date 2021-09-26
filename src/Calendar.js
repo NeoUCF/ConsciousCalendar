@@ -1,5 +1,6 @@
 import {
     addDays,
+    addMonths,
     differenceInCalendarDays,
     isSameDay,
     endOfMonth,
@@ -39,6 +40,7 @@ const style = {
 const Calendar = () => {
     const [open, setOpen] = React.useState(false);
     const [value, onChange] = useState('10:00');
+    const [monthAdd, setMonthAdd] = useState(0);
 
     const handleOpen = () => {
         setOpen(true);
@@ -47,7 +49,8 @@ const Calendar = () => {
         setOpen(false);
     };
 
-    const today = new Date();
+    let today = new Date();
+    today = addMonths(today, monthAdd);
     let day = startOfWeek(startOfMonth(today));
     const lastCalendarDay = endOfWeek(endOfMonth(today));
     const endDay = addDays(lastCalendarDay, 1); // This is to create an exclusive end date
@@ -87,12 +90,17 @@ const Calendar = () => {
         console.log(value)
     }
 
+    function changeMonth(value) {
+        console.log("Hooray", value);
+        setMonthAdd(value);
+    }
+
     return (
         <React.Fragment>
             <div>
-                <Button style={{width: "40%"}} variant="text" startIcon={<ArrowBackIosIcon />}/>
-                {monthName}
-                <Button style={{width: "40%"}} variant="text" startIcon={<ArrowForwardIosIcon />}/>
+                <Button style={{width: "40%"}} variant="text" startIcon={<ArrowBackIosIcon />} onClick={() => changeMonth(monthAdd-1)}/>
+                {monthName}, 
+                <Button style={{width: "40%"}} variant="text" startIcon={<ArrowForwardIosIcon />} onClick={() => changeMonth(monthAdd+1)}/>
 
             </div>
             <DaysOfTheWeek />

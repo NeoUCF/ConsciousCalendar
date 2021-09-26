@@ -17,6 +17,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import TimePicker from 'react-time-picker';
 import format from "date-fns/format/index";
+import App from './App';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 
@@ -70,6 +71,8 @@ const Calendar = () => {
 
     for (let counter = 1; !isSameDay(day, endDay); counter++) {
         week.push(day);
+        
+
         day = addDays(day, 1);
 
         if (counter === 7) {
@@ -77,6 +80,7 @@ const Calendar = () => {
             week = [];
             counter = 0;
         }
+
     }
 
     console.log(calendar);

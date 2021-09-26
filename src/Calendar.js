@@ -7,7 +7,6 @@ import {
     endOfWeek,
     startOfMonth,
     startOfWeek,
-    getMonth,
 } from "date-fns";
 import "./index.css";
 import { EventObject } from "./EventObject";
@@ -55,8 +54,8 @@ const Calendar = () => {
     const lastCalendarDay = endOfWeek(endOfMonth(today));
     const endDay = addDays(lastCalendarDay, 1); // This is to create an exclusive end date
     const totalDays = differenceInCalendarDays(lastCalendarDay, day) + 1; // +1 to add end date
-    const monthNumber = getMonth(today);
-    const monthName = format(new Date(2000, monthNumber, 1), 'MMMM');
+    const monthName = format(today, 'MMMM');
+    const year = format(today, 'yyyy');
     console.log(day, lastCalendarDay);
     console.log(totalDays);
 
@@ -99,7 +98,7 @@ const Calendar = () => {
         <React.Fragment>
             <div>
                 <Button style={{width: "40%"}} variant="text" startIcon={<ArrowBackIosIcon />} onClick={() => changeMonth(monthAdd-1)}/>
-                {monthName}, 
+                {monthName}, {year}
                 <Button style={{width: "40%"}} variant="text" startIcon={<ArrowForwardIosIcon />} onClick={() => changeMonth(monthAdd+1)}/>
 
             </div>
@@ -112,7 +111,7 @@ const Calendar = () => {
                                 return (
                                     <div
                                         key={day.getDate()}
-                                        className="days"
+                                        className={(monthName === format(day, "MMMM")) ? "days" : "other"}
                                         onClick={handleOpen}
                                     >
                                         {day.getDate()}

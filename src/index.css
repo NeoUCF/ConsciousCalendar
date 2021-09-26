@@ -38,8 +38,25 @@ code {
 }
 
 
-.days:hover {
+.days:hover, .other:hover {
   background-color: gray;
+}
+
+.other {
+  border-radius: 10px;
+  position: relative;
+  /* width: calc(100% / 7); */
+  width: 8rem;
+  height: 7rem;
+  display: inline-flex;
+  background-color: #CBF1F5;
+  border: 3px solid #A6E3E9;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  z-index: 1;
+  text-align: left;
+  color: black;
 }
 
 .DoTW {

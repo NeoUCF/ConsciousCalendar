@@ -9,8 +9,8 @@ import Homepage from './Homepage.js';
 ReactDOM.render(
     <React.StrictMode>
         <Header />
-        <App text="Hello" />
         <Homepage />
+        <App text="Hello" />
         <Footer />
     </React.StrictMode>,
     document.getElementById('root')

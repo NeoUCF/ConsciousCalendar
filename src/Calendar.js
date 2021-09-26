@@ -17,6 +17,8 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import TimePicker from 'react-time-picker';
 import format from "date-fns/format/index";
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 
 const style = {
     textAlign: "center",
@@ -82,12 +84,17 @@ const Calendar = () => {
     }
 
     function printStuff() {
-      console.log(value)
-     }
+        console.log(value)
+    }
 
     return (
         <React.Fragment>
-            {monthName}
+            <div>
+                <Button style={{width: "40%"}} variant="text" startIcon={<ArrowBackIosIcon />}/>
+                {monthName}
+                <Button style={{width: "40%"}} variant="text" startIcon={<ArrowForwardIosIcon />}/>
+
+            </div>
             <DaysOfTheWeek />
             <div className="calendar">
                 {calendar.map((week) => {
@@ -130,7 +137,7 @@ const Calendar = () => {
                             <input type="text" />
 
                             <p>Event start time</p>
-                            <TimePicker closeClock="true" onChange={onChange} value={value}/>
+                            <TimePicker closeClock="true" onChange={onChange} value={value} />
 
                             <p>Event start end</p>
 

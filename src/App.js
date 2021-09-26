@@ -20,9 +20,7 @@ function App(props) {
     return (
         <div className="App">
             <header className="App-header">
-            
-                <p>{props.text}</p>
-                {/* <p>{item}</p> */}
+                <div>Hello!</div>
                 <Calendar />
                 <br /><br /><br />
             </header>

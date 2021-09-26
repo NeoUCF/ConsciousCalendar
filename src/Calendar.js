@@ -19,11 +19,13 @@ import TimePicker from 'react-time-picker';
 import format from "date-fns/format/index";
 
 const style = {
+    textAlign: "center",
+    borderRadius: "50px",
     position: "absolute",
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 400,
+    width: 250,
     bgcolor: "background.paper",
     border: "2px solid #000",
     boxShadow: 24,
@@ -34,7 +36,7 @@ const style = {
 
 const Calendar = () => {
     const [open, setOpen] = React.useState(false);
-    const [value, onChange] = useState(new Date());
+    const [value, onChange] = useState('10:00');
 
     const handleOpen = () => {
         setOpen(true);
@@ -49,7 +51,7 @@ const Calendar = () => {
     const endDay = addDays(lastCalendarDay, 1); // This is to create an exclusive end date
     const totalDays = differenceInCalendarDays(lastCalendarDay, day) + 1; // +1 to add end date
     const monthNumber = getMonth(today);
-    const monthName = format(new Date(2000, monthNumber, 1), 'MMMM',)
+    const monthName = format(new Date(2000, monthNumber, 1), 'MMMM');
     console.log(day, lastCalendarDay);
     console.log(totalDays);
 
@@ -79,7 +81,9 @@ const Calendar = () => {
         console.log(number);
     }
 
-    function printStuff() { }
+    function printStuff() {
+      console.log(value)
+     }
 
     return (
         <React.Fragment>
@@ -126,7 +130,7 @@ const Calendar = () => {
                             <input type="text" />
 
                             <p>Event start time</p>
-                            <TimePicker disableClock="true" onChange={onChange} value={value} />
+                            <TimePicker closeClock="true" onChange={onChange} value={value}/>
 
                             <p>Event start end</p>
 

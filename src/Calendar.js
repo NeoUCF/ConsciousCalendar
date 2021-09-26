@@ -7,6 +7,8 @@ import {
     endOfWeek,
     startOfMonth,
     startOfWeek,
+    getMonth,
+    isToday,
 } from "date-fns";
 import "./index.css";
 import { EventObject } from "./EventObject";
@@ -20,6 +22,16 @@ import format from "date-fns/format/index";
 import App from './App';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import Slide from '@mui/material/Slide';
+
+
+
 
 const style = {
     textAlign: "center",
@@ -37,13 +49,51 @@ const style = {
     pb: 3,
 };
 
-const Calendar = () => {
+const Calendar = (props) => {
+      
+    const [openOne, setOpenOne] = React.useState(false);
     const [open, setOpen] = React.useState(false);
     const [value, onChange] = useState('10:00');
     const [monthAdd, setMonthAdd] = useState(0);
 
     const handleOpen = () => {
-        setOpen(true);
+        /*const Transition = React.forwardRef(function Transition(props, ref) {
+            return <Slide direction="up" ref={ref} {...props} />;
+          });
+          
+    
+            const handleClickOpen = () => {
+              setOpenOne(true);
+            };
+          
+            const handleClickClose = () => {
+              setOpenOne(false);
+            };
+        <div>
+        <Button variant="outlined" onClick={handleClickOpen}>
+          Slide in alert dialog
+        </Button>
+        <Dialog
+          open={openOne}
+          TransitionComponent={Transition}
+          keepMounted
+          onClose={handleClickClose}
+          aria-describedby="alert-dialog-slide-description"
+        >
+          <DialogTitle>{"Use Google's location service?"}</DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-slide-description">
+              Are you sure you want to create a new event? Increment weather has been detected on this day.
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClickClose}>Disagree</Button>
+            <Button onClick={handleClickClose}>Agree</Button>
+          </DialogActions>
+        </Dialog>
+      </div>*/
+      setOpen(true)
+    
     };
     const handleClose = () => {
         setOpen(false);
@@ -69,14 +119,26 @@ const Calendar = () => {
 
     console.log("event is " + JSON.stringify(eventArr));
 
+    var daysIcon={}
+
     for (let counter = 1; !isSameDay(day, endDay); counter++) {
         week.push(day);
-        
+        console.log("istoday=",isToday(day))
+        console.log("day=",day)
+
+        //if day == date.today, start printing 
+        if(isToday(day)){
+            daysIcon[day]=props.icons[0];
+            for(let i=1;i<7;i++){
+            daysIcon[addDays(day, i)]=props.icons[i];
+            }
+        }
 
         day = addDays(day, 1);
 
         if (counter === 7) {
             calendar.push(week);
+            console.log("calendar=",calendar)
             week = [];
             counter = 0;
         }
@@ -113,22 +175,31 @@ const Calendar = () => {
                         <div key={week[0]} className="weeks">
                             {week.map((day) => {
                                 return (
+
                                     <div
                                         key={day.getDate()}
                                         className={(monthName === format(day, "MMMM")) ? "days" : "other"}
                                         onClick={handleOpen}
                                     >
+                                       
                                         {day.getDate()}
                                         {eventArr.map((post) => {
                                             if (post.time === day.getDate())
-                                                return <h1 key={post}>{post.title}</h1>;
+                                                <h1 key={post}>&nbsp;{post.title}</h1>
+                                                        
                                         })}
+                                    <div className="images">
+                                    {daysIcon[day]!==undefined && <img src={daysIcon[day]} alt="" height="40px" width="40px" onerror="this.style.display='none'"></img>}
                                     </div>
+                                    </div>
+                                    
                                 );
                             })}
                         </div>
+                        
                     );
                 })}
+                
 
                 <Modal
                     open={open}
@@ -159,6 +230,8 @@ const Calendar = () => {
                     </Box>
                 </Modal>
             </div>
+
+
         </React.Fragment>
     );
 };
@@ -173,7 +246,6 @@ const DaysOfTheWeek = () => {
         "Friday",
         "Saturday",
     ];
-
     return (
         <div className="">
             {DoTW.map((day) => {

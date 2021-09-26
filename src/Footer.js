@@ -1,5 +1,4 @@
-const Footer = () => {
-    return <div className="footer">Food</div>;
+const Footer = () => {return null;
 }
  
 export default Footer;

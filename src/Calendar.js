@@ -20,7 +20,7 @@ import format from "date-fns/format/index";
 
 const style = {
     textAlign: "center",
-    borderRadius: "50px",
+    borderRadius: "40px",
     position: "absolute",
     top: "50%",
     left: "50%",
@@ -103,7 +103,7 @@ const Calendar = () => {
                                         {day.getDate()}
                                         {eventArr.map((post) => {
                                             if (post.time === day.getDate())
-                                                return <h1>{post.title}</h1>;
+                                                return <h1 key={post}>{post.title}</h1>;
                                         })}
                                     </div>
                                 );
@@ -130,7 +130,7 @@ const Calendar = () => {
                             <input type="text" />
 
                             <p>Event start time</p>
-                            <TimePicker closeClock="true" onChange={onChange} value={value}/>
+                            <TimePicker closeClock={true} onChange={onChange} value={value}/>
 
                             <p>Event start end</p>
 

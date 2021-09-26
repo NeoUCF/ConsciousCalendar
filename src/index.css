@@ -46,8 +46,8 @@ code {
   border-radius: 10px;
   position: relative;
   /* width: calc(100% / 7); */
-  width: 8rem;
-  height: 7rem;
+  width: 7rem;
+  height: 6rem;
   display: inline-flex;
   background-color: #CBF1F5;
   border: 3px solid #A6E3E9;

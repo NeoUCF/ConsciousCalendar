@@ -9,7 +9,6 @@ function App(props) {
     const [item, setItem] = useState([]);
     const [isDone, setIsDone] = useState(false);
 
-
     useEffect(() => {
         const secret = process.env.REACT_APP_WEATHER_KEY;
         fetch(`http://api.openweathermap.org/data/2.5/weather?q=` + cityName + `&appid=` + secret + `&units=metric`)
@@ -57,15 +56,13 @@ function App(props) {
         }
     }
 
-    
-
     return (
         <div className="App">
             <header className="App-header">
             <img src={icons[0]} alt="weathericon"/>
                 <br/>
                 <Calendar />
-                <br /><br /><br />
+                <br /><br />
             </header>
 
         </div>

@@ -123,8 +123,8 @@ const Calendar = (props) => {
 
     for (let counter = 1; !isSameDay(day, endDay); counter++) {
         week.push(day);
-        console.log("istoday=",isToday(day))
-        console.log("day=",day)
+        // console.log("istoday=",isToday(day))
+        // console.log("day=",day)
 
         //if day == date.today, start printing 
         if(isToday(day)){

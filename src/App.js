@@ -53,8 +53,10 @@ function App(props) {
             console.log(dailyWeather[0]);
              var iconURL="https://openweathermap.org/img/wn/"+dailyWeather[i].icon+"@2x.png"
              icons.push(iconURL)
+
     
         }
+
     }
 
     
@@ -64,7 +66,7 @@ function App(props) {
             <header className="App-header">
             <img src={icons[0]} alt="weathericon"/>
                 <br/>
-                <Calendar />
+                <Calendar icons={icons} daily={dailyWeather} />
                 <br /><br /><br />
             </header>
 

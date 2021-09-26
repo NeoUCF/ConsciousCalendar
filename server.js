@@ -6,6 +6,9 @@ const cors=require("cors");
 const mongoose = require('mongoose');
 require("dotenv").config();
 
+console.log("WORKING")
+console.log(process.env.WEATHER_KEY);
+
 // Connect to database
 mongoose.connect(process.env.REACT_APP_MONGODB_SRV
     ,{useNewUrlParser: true,

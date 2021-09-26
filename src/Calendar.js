@@ -1,5 +1,6 @@
 import {
     addDays,
+    addMonths,
     differenceInCalendarDays,
     isSameDay,
     endOfMonth,
@@ -18,10 +19,12 @@ import Typography from "@mui/material/Typography";
 import TimePicker from 'react-time-picker';
 import format from "date-fns/format/index";
 import App from './App';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 
 const style = {
     textAlign: "center",
-    borderRadius: "50px",
+    borderRadius: "40px",
     position: "absolute",
     top: "50%",
     left: "50%",
@@ -38,6 +41,7 @@ const style = {
 const Calendar = () => {
     const [open, setOpen] = React.useState(false);
     const [value, onChange] = useState('10:00');
+    const [monthAdd, setMonthAdd] = useState(0);
 
     const handleOpen = () => {
         setOpen(true);
@@ -46,7 +50,8 @@ const Calendar = () => {
         setOpen(false);
     };
 
-    const today = new Date();
+    let today = new Date();
+    today = addMonths(today, monthAdd);
     let day = startOfWeek(startOfMonth(today));
     const lastCalendarDay = endOfWeek(endOfMonth(today));
     const endDay = addDays(lastCalendarDay, 1); // This is to create an exclusive end date
@@ -86,12 +91,22 @@ const Calendar = () => {
     }
 
     function printStuff() {
-      console.log(value)
-     }
+        console.log(value)
+    }
+
+    function changeMonth(value) {
+        console.log("Hooray", value);
+        setMonthAdd(value);
+    }
 
     return (
         <React.Fragment>
-            {monthName}
+            <div>
+                <Button style={{width: "40%"}} variant="text" startIcon={<ArrowBackIosIcon />} onClick={() => changeMonth(monthAdd-1)}/>
+                {monthName}, 
+                <Button style={{width: "40%"}} variant="text" startIcon={<ArrowForwardIosIcon />} onClick={() => changeMonth(monthAdd+1)}/>
+
+            </div>
             <DaysOfTheWeek />
             <div className="calendar">
                 {calendar.map((week) => {
@@ -107,7 +122,7 @@ const Calendar = () => {
                                         {day.getDate()}
                                         {eventArr.map((post) => {
                                             if (post.time === day.getDate())
-                                                return <h1>{post.title}</h1>;
+                                                return <h1 key={post}>{post.title}</h1>;
                                         })}
                                     </div>
                                 );
@@ -134,7 +149,7 @@ const Calendar = () => {
                             <input type="text" />
 
                             <p>Event start time</p>
-                            <TimePicker closeClock="true" onChange={onChange} value={value}/>
+                            <TimePicker closeClock={true} onChange={onChange} value={value}/>
 
                             <p>Event start end</p>
 

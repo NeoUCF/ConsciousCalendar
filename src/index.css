@@ -21,8 +21,8 @@ code {
     border-radius: 10px;
     position: relative;
     /* width: calc(100% / 7); */
-    width: 8rem;
-    height: 7rem;
+    width: 7rem;
+    height: 6rem;
     display: inline-flex;
     background-color: #DEFCFC;
     border: 3px solid #A6E3E9;
@@ -32,11 +32,11 @@ code {
     z-index: 1;
     text-align: left;
     color: black;
-}
-
-.days:hover {
+  }
+  
+  .days:hover, .other:hover {
     background-color: gray;
-}
+  }
 
 #calendar-image {
     position: relative;
@@ -74,11 +74,28 @@ code {
 
 }
 
+.other {
+  border-radius: 10px;
+  position: relative;
+  /* width: calc(100% / 7); */
+  width: 7rem;
+  height: 6rem;
+  display: inline-flex;
+  background-color: #CBF1F5;
+  border: 3px solid #A6E3E9;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  z-index: 1;
+  text-align: left;
+  color: black;
+}
+
 .DoTW {
-    font-size: 18px;
+    font-size: 16px;
     position: relative;
     /* width: calc(100% / 7); */
-    width: 8rem;
+    width: 7rem;
     display: inline-flex;
     background-color: #DEFCFC;
     padding: 0;
@@ -113,5 +130,25 @@ code {
     cursor: pointer;
     transition: all 0.3s linear;
     font-family: 'Montserrat', sans-serif;
+ 
 }
 
+.images{
+  height:40px;
+  padding: 0;
+  float: right;
+  display: block;
+  margin-left: auto;
+   -webkit-filter: drop-shadow(0.5px 0.5px 0 black) 
+  drop-shadow(-0.5px -0.5px 0 black); 
+  filter: drop-shadow(0.75px 0.75px 0 black)
+  drop-shadow(-0.5px -0.5px 0 black); 
+}
+
+/* .forward-button {
+  width: 40%;
+}
+
+.back-button {
+  width: 40%;
+} */

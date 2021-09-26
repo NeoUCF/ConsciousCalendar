@@ -1,5 +1,6 @@
 import {
     addDays,
+    addMonths,
     differenceInCalendarDays,
     isSameDay,
     endOfMonth,
@@ -7,6 +8,7 @@ import {
     startOfMonth,
     startOfWeek,
     getMonth,
+    isToday,
 } from "date-fns";
 import "./index.css";
 import { EventObject } from "./EventObject";
@@ -17,10 +19,23 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import TimePicker from 'react-time-picker';
 import format from "date-fns/format/index";
+import App from './App';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import Slide from '@mui/material/Slide';
+
+
+
 
 const style = {
     textAlign: "center",
-    borderRadius: "50px",
+    borderRadius: "40px",
     position: "absolute",
     top: "50%",
     left: "50%",
@@ -34,24 +49,64 @@ const style = {
     pb: 3,
 };
 
-const Calendar = () => {
+const Calendar = (props) => {
+      
+    const [openOne, setOpenOne] = React.useState(false);
     const [open, setOpen] = React.useState(false);
     const [value, onChange] = useState('10:00');
+    const [monthAdd, setMonthAdd] = useState(0);
 
     const handleOpen = () => {
-        setOpen(true);
+        /*const Transition = React.forwardRef(function Transition(props, ref) {
+            return <Slide direction="up" ref={ref} {...props} />;
+          });
+          
+    
+            const handleClickOpen = () => {
+              setOpenOne(true);
+            };
+          
+            const handleClickClose = () => {
+              setOpenOne(false);
+            };
+        <div>
+        <Button variant="outlined" onClick={handleClickOpen}>
+          Slide in alert dialog
+        </Button>
+        <Dialog
+          open={openOne}
+          TransitionComponent={Transition}
+          keepMounted
+          onClose={handleClickClose}
+          aria-describedby="alert-dialog-slide-description"
+        >
+          <DialogTitle>{"Use Google's location service?"}</DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-slide-description">
+              Are you sure you want to create a new event? Increment weather has been detected on this day.
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClickClose}>Disagree</Button>
+            <Button onClick={handleClickClose}>Agree</Button>
+          </DialogActions>
+        </Dialog>
+      </div>*/
+      setOpen(true)
+    
     };
     const handleClose = () => {
         setOpen(false);
     };
 
-    const today = new Date();
+    let today = new Date();
+    today = addMonths(today, monthAdd);
     let day = startOfWeek(startOfMonth(today));
     const lastCalendarDay = endOfWeek(endOfMonth(today));
     const endDay = addDays(lastCalendarDay, 1); // This is to create an exclusive end date
     const totalDays = differenceInCalendarDays(lastCalendarDay, day) + 1; // +1 to add end date
-    const monthNumber = getMonth(today);
-    const monthName = format(new Date(2000, monthNumber, 1), 'MMMM');
+    const monthName = format(today, 'MMMM');
+    const year = format(today, 'yyyy');
     console.log(day, lastCalendarDay);
     console.log(totalDays);
 
@@ -64,15 +119,30 @@ const Calendar = () => {
 
     console.log("event is " + JSON.stringify(eventArr));
 
+    var daysIcon={}
+
     for (let counter = 1; !isSameDay(day, endDay); counter++) {
         week.push(day);
+        // console.log("istoday=",isToday(day))
+        // console.log("day=",day)
+
+        //if day == date.today, start printing 
+        if(isToday(day)){
+            daysIcon[day]=props.icons[0];
+            for(let i=1;i<7;i++){
+            daysIcon[addDays(day, i)]=props.icons[i];
+            }
+        }
+
         day = addDays(day, 1);
 
         if (counter === 7) {
             calendar.push(week);
+            console.log("calendar=",calendar)
             week = [];
             counter = 0;
         }
+
     }
 
     console.log(calendar);
@@ -82,12 +152,22 @@ const Calendar = () => {
     }
 
     function printStuff() {
-      console.log(value)
-     }
+        console.log(value)
+    }
+
+    function changeMonth(value) {
+        console.log("Hooray", value);
+        setMonthAdd(value);
+    }
 
     return (
         <React.Fragment>
-            {monthName}
+            <div>
+                <Button style={{width: "40%"}} variant="text" startIcon={<ArrowBackIosIcon />} onClick={() => changeMonth(monthAdd-1)}/>
+                {monthName}, {year}
+                <Button style={{width: "40%"}} variant="text" startIcon={<ArrowForwardIosIcon />} onClick={() => changeMonth(monthAdd+1)}/>
+
+            </div>
             <DaysOfTheWeek />
             <div className="calendar">
                 {calendar.map((week) => {
@@ -95,22 +175,31 @@ const Calendar = () => {
                         <div key={week[0]} className="weeks">
                             {week.map((day) => {
                                 return (
+
                                     <div
                                         key={day.getDate()}
-                                        className="days"
+                                        className={(monthName === format(day, "MMMM")) ? "days" : "other"}
                                         onClick={handleOpen}
                                     >
+                                       
                                         {day.getDate()}
                                         {eventArr.map((post) => {
                                             if (post.time === day.getDate())
-                                                return <h1>{post.title}</h1>;
+                                                <h1 key={post}>&nbsp;{post.title}</h1>
+                                                        
                                         })}
+                                    <div className="images">
+                                    {daysIcon[day]!==undefined && <img src={daysIcon[day]} alt="" height="40px" width="40px" onerror="this.style.display='none'"></img>}
                                     </div>
+                                    </div>
+                                    
                                 );
                             })}
                         </div>
+                        
                     );
                 })}
+                
 
                 <Modal
                     open={open}
@@ -130,7 +219,7 @@ const Calendar = () => {
                             <input type="text" />
 
                             <p>Event start time</p>
-                            <TimePicker closeClock="true" onChange={onChange} value={value}/>
+                            <TimePicker closeClock={true} onChange={onChange} value={value}/>
 
                             <p>Event start end</p>
 
@@ -141,6 +230,8 @@ const Calendar = () => {
                     </Box>
                 </Modal>
             </div>
+
+
         </React.Fragment>
     );
 };
@@ -155,7 +246,6 @@ const DaysOfTheWeek = () => {
         "Friday",
         "Saturday",
     ];
-
     return (
         <div className="">
             {DoTW.map((day) => {
